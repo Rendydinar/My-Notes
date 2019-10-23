@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.darkly.min.css">
+	<link rel="stylesheet" href="fontawesome-free-5.9.0/css/all.min.css">
+	<link rel="stylesheet" href="css/user-register.css">
+	<link rel="shortcut icon" href="/ico/Guillendesign-Variations-1-Notes.ico"> 	
+	<!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
+	<title>Register My Notes</title>
+
+</head>
+<body>
+
+	<div class="container">
+		<!-- Register container -->
+		<div class="register-container">
+			<div class="icon-user">
+ 				<i class="fas fa-user-plus text-success fa-lg fa-5x"></i>
+				</div>
+			<h2 class="text-success text-center">Registrasi Account</h2>
+			
+			<!-- Message from server -->
+			<div class="msgErr">
+				<% if(typeof errors !== 'undefined') { %>
+					<% errors.forEach((error) => { %> 
+						<div class="alert alert-dismissible alert-danger">
+							<button type="button" class="close" data-dismiss="alert">&times;</button>
+							<h4 class="alert-heading">Error!</h4>
+							<p class="mb-0"><%= error.msg %></p>
+						</div>			
+					<% }); %>
+				<% } %>
+			</div>
+			
+			<!-- Register form -->
+			<div class="register-form">
+	 			<form action="/register" method="post">
+					<div class="form-group">
+				    	<label for="usernameField">Username</label>
+				    	<div class="input-group">
+				    		<div class="input-group-prepend">
+				    			<div class="input-group-text"><i class="fas fa-user text-success fa-2x"></i></div>
+ 				    		</div>
+						    <input type="text" class="form-control" id="usernameField" name="name" placeholder="Masukan Nama Anda" value="<%= typeof name != 'undefined' ? name : '' %>">
+				    	</div>
+				    </div>
+					<div class="form-group">
+				    	<label for="exampleInputEmail1">Email address</label>
+				    	<div class="input-group">
+				    		<div class="input-group-prepend">
+				    			<div class="input-group-text"><i class="fas fa-envelope-square text-success fa-2x"></i></div>
+ 				    		</div>
+						    <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Alamat Email Anda" value="<%= typeof email != 'undefined' ? email : '' %>">
+				    	</div>
+ 				    </div>
+				    <div class="form-group">
+			        	<label for="password">Password</label>
+			            <div class="input-group">
+			            	<div class="input-group-prepend">
+			                	<div class="input-group-text"><i class="fas fa-unlock-alt text-success fa-2x"></i></div>
+			              	</div>
+			              	<input type="password" class="form-control" placeholder="Masukan Password Anda" name="password" id="password" value="<%= typeof password != 'undefined' ? password : '' %>">
+			            </div>
+ 				      	<small class="form-text text-danger">Password Harus Lebih Dari 6 Karakter dan Harus Mempunyai Angka.</small>
+			        </div>
+				    <div class="form-group">
+			        	<label for="confirm-password">Konfirmasi Ulang Password</label>
+			            <div class="input-group">
+			            	<div class="input-group-prepend">
+			                	<div class="input-group-text"><i class="fas fa-unlock-alt text-success fa-2x"></i></div>
+			              	</div>
+			              	<input type="password" class="form-control" placeholder="Masukan Ulang Password Anda" name="confirm_password" id="confirm-password" value="<%= typeof confirm_password != 'undefined' ? confirm_password : '' %>">
+			            </div>
+			        </div>
+					<div class="register-button">
+						<button type="submit" class="btn btn-outline-success">REGISTER</button>
+					</div> <br>
+					<div class="lead"><p>Sudah Punya Akun? <a href="/login">Login Akun</a></p></div>
+					<input type="hidden" name="_csrf" value="<%= csrfToken %>">				
+				</form>				
+			</div>
+ 		</div>
+	</div>
+
+	<!-- Footer -->
+	<footer class="page-footer font-small cyan bg-success">
+	  	<!-- Footer Elements -->
+	  	<div class="container">
+	    	<!-- Grid row-->
+	    	<div class="row">
+		      	<!-- Grid column -->
+		      	<div class="col-md-12 py-5">
+		        	<div class="mb-5 flex-center">
+			          	<!-- Facebook -->
+			         	<a class="fb-ic">
+			            	<i class="fab fa-facebook-f fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+				        </a>
+			          	<!--Linkedin -->
+		    	    	<a class="li-ic">
+		        			<i class="fab fa-linkedin-in fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+			          	</a>
+		          		<!--Instagram-->
+				        <a class="ins-ic">
+				        	<i class="fab fa-instagram fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+				        </a>
+				        <!--Pinterest-->
+				        <a class="pin-ic">
+				        	<i class="fab fa-github fa-sm white-text fa-2x"> </i>
+				        </a>
+		        	</div>
+		      	</div>
+	      	<!-- Grid column -->
+	    	</div>
+	    <!-- Grid row-->
+	  	</div>
+	  	<!-- Footer Elements -->
+	  	<!-- Copyright -->
+	  	<div class="footer-copyright text-center py-3">© 2019 Copyright My Notes Team </div>
+	</footer>
+
+
+
+	<script src="js/popper.min.js"></script>
+	<script src="js/jquery-3.4.1.min.js"></script>	
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+body {
+	font-size: 3vh;
+}
+
+.note-button {
+	text-align: center;
+	}
+
+	.note-button button {
+	border-radius: 50px;
+    width: 50%;
+}
+
+.lead p {
+	margin-top: 5px;
+	text-align: center;
+}
+
+footer {
+	margin-top: 20%;
+	text-align: center;	
+	height: 100%;
+}
+
+input {
+	height: 50px !important;
+	font-size: 23px !important;
+}
+
+textarea {
+	font-size: 23px !important;			
+}
+
+.msgErr {
+	margin-top: 50px;
+	width:80%;
+	margin-left: 10%;
+}
+
+.photo-profile-thumb a img {
+	border-radius: 100%;
+	width: 100px;
+}
+
+.form-add-note {
+	margin-top: 10%;
+	padding: 5%;
+	border: solid 1px #00bc8c;
+	border-radius: 50px;
+}
+
+.label-tambah-note {
+	border: solid 1px #00bc8c;
+	width: 50%;
+	text-align: center;
+	margin-left: 25%;
+	margin-bottom: 5%;
+	border-radius: 25px;
+}
+
+.form-search-note-container{
+	text-align: right;
+}
+
+.photo-profile-thumb {
+	margin-top: -50px;
+}
+	
+@media (max-width: 800px) {
+	.form-search-note-container{
+		width: 470px;
+		text-align: right;
+	}	
+}
+
+.nav-item {
+	margin-right: 25px;
+}
+
+.modal-body {
+	text-align: center;
+}
+
+.notes-label {
+	margin-top: 60px;
+	margin-left: 6%;
+}	
+
+.card:hover {
+  	background: rgba(0, 0, 0, 0.3);
+  	transform: translateY(-2px);		
+  	cursor: pointer;	
+}
+
+.card {
+	border-radius: 15px;
+}
+
+.note-card img {
+	height: 350px;	
+}
+
+.img-note-modal {
+	width: 100%;
+	height: 780px;
+}
+
+@media only screen and (min-width: 340px) and (max-width: 767px) {
+	/*Mobile Responsif Layoout*/
+	 .img-note-modal {
+		width: 100%;
+		height: 400px;
+	}
+
+	.card {
+		width: 100%;
+		padding: 4px;
+	}	
+	
+	.card-title {
+		font-size: 30px;
+	}
+
+	.card-text {
+		font-size: 15px;
+	}
+
+	.notes-label {
+		margin-top: 54px;
+		margin-left: 3%;
+		font-size: 20px;
+	}			
+
+	.notes-label h1{
+		font-size: 35px;
+	}			
+
+	.photo-profile-thumb a img {
+		border-radius: 100%;
+		width: 90px;
+		height: 100px;
+	}
+
+	.photo-profile-thumb span {
+		font-size: 20px;
+	}
+	
+	.photo-profile-thumb {
+		margin-top: -10%;
+	}
+
+	.form-search-note-container{
+		width: 100%;
+		text-align: right;
+	}				
+	input{
+		height: 50px !important;
+		font-size: 15px !important;
+	}
+
+	textarea {
+		font-size: 15px !important;			
+	}
+	
+	.alert-heading {
+		font-size: 25px;
+	}
+
+	.mb-0 {
+		font-size: 15px;
+	}
+
+}
+	
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	/*Tablet Responsif Layoout*/
+
+}

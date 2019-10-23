@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/bootstrap.darkly.min.css">
+	<link rel="stylesheet" href="/fontawesome-free-5.9.0/css/all.min.css">
+	<link rel="stylesheet" href="/css/user-statistik-notes.css">
+	<link rel="shortcut icon" href="/ico/Guillendesign-Variations-1-Notes.ico"> 	
+
+	<title>My Notes</title>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="mainNav">
+		<a class="bar-brand text-white" href="/user/dashboard">My Notes</a>
+	  	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+	    	<span class="navbar-toggler-icon"></span>
+	  	</button>
+	  	<div class="collapse navbar-collapse" id="navbarColor03">
+	    	<ul class="navbar-nav ml-auto">
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="/user/profile">Profile</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="/user/notes">Notes</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="/user/statistik-notes">Notes Statistik</a>
+		      	</li>
+		      	<li class="nav-item"> 
+		        	<a class="nav-link" href="/user/logout"><i class="fas fa-sign-out-alt fa-lg" data-toggle="tooltip" title="Logout"> Logout</i></a>
+		      	</li>
+	    	</ul>
+	  	</div>
+	</nav> <br><br><br>
+	
+	<!-- photo-profile-thumb -->
+	<div class="container">
+		<div class="photo-profile-thumb">
+			<a href="/user/profile"><img src="<%= file_image_profile_url %>" alt="" class="img-fluid img-thumbnail"></a> <span class="text-success"><%= name %></span> 
+		</div> <br>
+	</div>
+	
+	<!-- statistik label -->
+	<div class="container">
+		<div class="statistik-label">
+			<h1 class="text-success">STATISTIK NOTES</h1> <br>
+		</div>	
+	</div>
+ 
+ 	
+	<!-- Select kategori statistik -->
+	<div class="container select-statistik-note-container">
+	   	<div class="form-group">
+	      <label for="exampleSelect1">Tampilkan Berdasarkan</label>
+	      <select class="form-control" id="selectStatistikNotes">
+	        <option>Semua</option>
+	        <option>Kategori</option>
+	      </select>
+	    </div> 	
+	</div>
+ 	
+ 	<!-- Daftar statistik -->
+ 	<div class="container canvas-statistik">
+ 		<!-- Statistik canvas -->
+	 	<canvas id="statistik-notes"></canvas>	
+ 	</div>
+ 	
+	<!-- Jumlah notes -->
+	<div class="label-jumlah-notes text-success">Jumlah Notes: 20 Notes</div>	
+	
+
+	<!-- Footer -->
+	<footer class="page-footer font-small cyan bg-success">
+	  	<!-- Footer Elements -->
+	  	<div class="container">
+	    	<!-- Grid row-->
+	    	<div class="row">
+		      	<!-- Grid column -->
+		      	<div class="col-md-12 py-5">
+		        	<div class="mb-5 flex-center">
+			          	<!-- Facebook -->
+			         	<a class="fb-ic">
+			            	<i class="fab fa-facebook-f fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+				        </a>
+			          	<!--Linkedin -->
+		    	    	<a class="li-ic">
+		        			<i class="fab fa-linkedin-in fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+			          	</a>
+		          		<!--Instagram-->
+				        <a class="ins-ic">
+				        	<i class="fab fa-instagram fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+				        </a>
+				        <!--Pinterest-->
+				        <a class="pin-ic">
+				        	<i class="fab fa-github fa-sm white-text fa-2x"> </i>
+				         </a>
+		        	</div>
+		      	</div>
+	      	<!-- Grid column -->
+	    	</div>
+	    <!-- Grid row-->
+	  	</div>
+	  	<!-- Footer Elements -->
+	  	<!-- Copyright -->
+	  	<div class="footer-copyright text-center py-3">© 2019 Copyright My Notes Team </div>
+	</footer>
+
+	<script src="/js/chartjs-2-7-2.js"></script>
+	<script src="/js/chart-statistik-notes.js"></script>
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/jquery-3.4.1.min.js"></script>	
+	<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

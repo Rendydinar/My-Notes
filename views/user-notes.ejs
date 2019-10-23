@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/css/bootstrap.darkly.min.css">
+	<link rel="stylesheet" href="/fontawesome-free-5.9.0/css/all.min.css">
+	<link rel="stylesheet" href="/css/user-notes.css">
+	<link rel="shortcut icon" href="/ico/Guillendesign-Variations-1-Notes.ico"> 	
+	<!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"> -->
+	<title>My Notes</title>
+
+</head>
+<body>
+	<!-- Nav bar -->
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" id="mainNav">
+		<a class="bar-brand text-white" href="/user/dashboard">My Notes</a>
+	  	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+	    	<span class="navbar-toggler-icon"></span>
+	  	</button>
+	  	<div class="collapse navbar-collapse" id="navbarColor03">
+	    	<ul class="navbar-nav ml-auto">
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="/user/profile">Profile</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="/user/notes">Notes</a>
+		      	</li>
+		      	<li class="nav-item">
+		        	<a class="nav-link" href="/user/statistik-notes">Notes Statistik</a>
+		      	</li>
+		      	<li class="nav-item"> 
+		        	<a class="nav-link" href="/user/logout"><i class="fas fa-sign-out-alt fa-lg" data-toggle="tooltip" title="Logout"> Logout</i></a>
+		      	</li>
+	    	</ul>
+	  	</div>
+	</nav> <br><br><br>
+	
+	<!-- photo-profile-thumb -->
+	<div class="container">
+		<div class="photo-profile-thumb">
+			<a href="/user/profile"><img src="<%= file_image_profile_url %>" alt="" class="img-fluid img-thumbnail"></a> <span class="text-success"><%= name %></span> 
+		</div> <br>
+	</div>
+
+ 	<!-- notes label -->
+ 	<div class="container">
+	 	<div class="notes-label">
+			<h1 class="text-success">NOTES</h1>
+		</div>		
+ 	</div>
+  	
+	<!-- Message from server -->
+	<div class="msgErr">		
+		<% if( error_msg.length > 0 ) {%>
+			<div class="alert alert-dismissible alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4 class="alert-heading">Error!</h4>
+				<p class="mb-0"><%= error_msg %></p>
+			</div>			
+		<% } %>
+		
+		<% if( success_msg.length > 0 ) {%>
+			<div class="alert alert-dismissible alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4 class="alert-heading">Success!</h4>
+				<p class="mb-0"><%= success_msg %></p>
+			</div>			
+		<% } %>
+	</div>
+
+	<!-- form-cari-note -->
+	<div class="container form-search-note-container">
+		<form action="/user/notes" method="GET">
+			<div class="form-search-note">
+			   	<label for="cari-note" class="text-success">Cari Note Berdasarkan Kategori</label>
+				<div class="form-group">
+		    		<div class="input-group-prepend"> 
+		  				<input type="text" class="form-control" name="kategori" id="cari-note" placeholder="Kategori Note..." value="<%= typeof kategori != 'undefined' ? kategori : '' %>" required>
+			    		<button type="submit" class="input-group-text"><i class="fas fa-search text-success"></i></button>
+				    </div>
+	 		    </div>			
+			</div>			
+		</form>
+ 	</div>
+
+	<!-- form-add-note -->
+	<div class="container">
+		<div class="form-add-note">
+			<div class="label-tambah-note text-success">Form Tambah Note</div>
+			<form action="/user/add-user-note" method="POST" class="text-success" enctype="multipart/form-data">
+				<div class="form-group">
+			    	<label for="add-judul-note" class="label-update-note-card">Judul Note</label> 
+					<input type="text" class="form-control" name="judul" id="add-judul-note" placeholder="Judul Note..." value="<%= typeof judul != 'undefined' ? judul : ''%>" required>
+			    </div>
+
+			 	<div class="form-group">
+			      <label for="add-content-note">Content Note</label>
+			      <textarea class="form-control" id="add-content-note" name="content" rows="5" placeholder="Content Note" value="<%= typeof content != 'undefined' ? content : ''%>" required></textarea>
+			    </div>			
+
+				<div class="form-group">
+			    	<label for="add-kategori-note">Kategori Note</label>
+					<input type="text" class="form-control" name="kategori" id="add-judul-note" placeholder="Ex: Nongkrong, Trip..." value="<%= typeof kategori != 'undefined' ? kategori : ''%>" required>
+			    </div>
+
+				<div class="form-group">
+			      <label for="exampleInputFile">Image Note</label>
+			      <input type="file" name="file_img_note_url" class="form-control-file" id="exampleInputFile"  accept="image/*" >
+			    </div> <br>
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">				
+
+				<div class="note-button">
+					<button type="submit" class="btn btn-outline-success">TAMBAH NOTE</button>
+				</div>
+			</form>
+		</div>		
+	</div>
+
+	<!-- daftar-note-card -->
+	<div class="container">
+		<div class="row">
+			<% if(typeof notes !== 'undefined') { %>
+				<% notes.forEach((note) => { %>
+					<div class="mt-5 col-md-4">
+					    <div class="card mb-3 border-success note-card">
+					        <img data-toggle="modal" id="noteImage" data-id="<%= note.file_image_note_url %>" onclick="renderImgNote('<%= note.file_image_note_url %>','<%= note.judul %>')" data-target="#noteImageModal" src="<%= note.file_image_note_url %>" alt="" class="card-img-top img-fluid img-thumbnail">
+					        <div class="card-body">
+					            <h1 class="card-title" style="text-transform: uppercase;font-weight: bold;"><%= note.judul %></h1>
+					            <p class="card-text"><%= note.content %></p>
+					            <p class="card-text"><small class="text-muted">Dibuat Pada: <%= note.created %></small></p>
+					            <p class="card-text"><small class="text-muted">Kategori: <%= note.kategori %></small></p>
+					            <button class="card-link btn btn-outline-success update-note" onclick="updateNote(<%= note.id %>)" data-toggle="modal" data-id="<%= note.id %>" data-target="#updateNoteModal">Ubah</button>
+					            <button class="card-link btn btn-outline-danger" onclick="deleteNote(<%= note.id %>)" id="deleteNote" data-toggle="modal" data-id="<%= note.id %>" data-target="#deleteNoteCardModal">Hapus</button>
+					        </div>              
+					    </div>
+					</div>
+
+				<% }); %>
+			<% } %>
+
+			
+		</div>
+	</div> 
+	
+	<!-- daftar-modal -->
+	<!-- modal-update-note-card -->
+	<!-- modal-ubah-note-card -->
+    <div class="modal" id="updateNoteModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Ubah Nama</h5>
+                    <button type="botton" class="close" data-dismiss="modal" aria-label="Close">
+                       <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-update-note">
+                    <!-- form ubah nama account -->                                   
+					
+					<!-- <form action="/user/update-user-note" method="POST" class="text-success">
+						<div class="form-group">
+					    	<label for="add-judul-note">Judul Note</label>
+							<input type="text" class="form-control" name="judul" id="add-judul-note" placeholder="Judul Note...">
+					    </div>
+
+					 	<div class="form-group">
+					      <label for="add-content-note">Content Note</label>
+					      <textarea class="form-control" id="add-content-note" name="content" rows="5" placeholder="Content Note"></textarea>
+					    </div>			
+
+						<div class="form-group">
+					    	<label for="add-kategori-note">Kategori Note</label>
+							<input type="text" class="form-control" name="kategori" id="add-judul-note" placeholder="Ex: Nongkrong, Trip...">
+					    </div>
+
+						<div class="form-group">
+					      <label for="exampleInputFile">Image Note</label>
+					      <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+					    </div> <br>
+				        <input type="hidden" name="_csrf" value="<%= csrfToken %>">				
+						
+						<div class="note-button">
+							<button type="submit" class="btn btn-outline-success">UBAH NOTE</button>
+						</div>
+					</form> -->
+                </div>
+            </div>
+        </div>                                              
+    </div>
+
+	<!-- modal-photo-note-card -->
+	<div class="modal" id="noteImageModal">
+ 	    <div class="modal-content" id="modal-img-note">
+ 	    </div>
+ 	</div>	
+	
+	<!-- modal-delete-note -->
+	<div class="modal" id="deleteNoteCardModal">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Delete Note</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <p>Apakah Anda Ingin Menghapus Note Ini? <span class="text-danger"> Setelah Menghapus Note Ini Anda Tidak Akan Melihatnya Lagi</span></p>
+			<div id="deleteNoteModalButton"></div>	
+	      </div>
+	      <div class="modal-footer">
+ 	      </div>
+	    </div>
+	  </div>
+	</div>	
+	
+	<!-- akhir daftar modal  -->
+
+
+	<!-- Footer -->
+	<footer class="page-footer font-small cyan bg-success">
+	  	<!-- Footer Elements -->
+	  	<div class="container">
+	    	<!-- Grid row-->
+	    	<div class="row">
+		      	<!-- Grid column -->
+		      	<div class="col-md-12 py-5">
+		        	<div class="mb-5 flex-center">
+			          	<!-- Facebook -->
+			         	<a class="fb-ic">
+			            	<i class="fab fa-facebook-f fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+				        </a>
+			          	<!--Linkedin -->
+		    	    	<a class="li-ic">
+		        			<i class="fab fa-linkedin-in fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+			          	</a>
+		          		<!--Instagram-->
+				        <a class="ins-ic">
+				        	<i class="fab fa-instagram fa-sm white-text mr-md-5 mr-3 fa-2x"> </i>
+				        </a>
+				        <!--Pinterest-->
+				        <a class="pin-ic">
+				        	<i class="fab fa-github fa-sm white-text fa-2x"> </i>
+				         </a>
+		        	</div>
+		      	</div>
+	      	<!-- Grid column -->
+	    	</div>
+	    <!-- Grid row-->
+	  	</div>
+	  	<!-- Footer Elements -->
+	  	<!-- Copyright -->
+	  	<div class="footer-copyright text-center py-3">© 2019 Copyright My Notes Team </div>
+	</footer>
+
+	<script src="/js/popper.min.js"></script>
+	<script src="/js/jquery-3.4.1.min.js"></script>	
+	<script src="/js/bootstrap.min.js"></script>
+
+	<script>
+		// fungsi untuk menampilkan popup modal card update note 
+		function updateNote(e) {
+			let modalUpdateNote = document.getElementById('modal-update-note');
+			<% notes.forEach((note) => { %>
+				if(e === <%= note.id %>) {
+					console.log(<%= note.id %>);
+					modalUpdateNote.innerHTML = `
+						<form action="/user/update-user-note" method="POST" class="text-success" enctype="multipart/form-data">
+							<div class="form-group">
+						    	<label for="add-judul-note">Judul Note</label>
+								<input type="text" class="form-control" name="judul" id="add-judul-note" placeholder="Judul Note..." value="<%= note.judul %>" required>
+						    </div>
+
+						 	<div class="form-group">
+						      <label for="add-content-note">Content Note</label>
+						      <textarea class="form-control" id="add-content-note" name="content" rows="5" placeholder="Content Note..." required><%= note.content %></textarea>
+						    </div>			
+
+							<div class="form-group">
+						    	<label for="add-kategori-note">Kategori Note</label>
+								<input type="text" class="form-control" name="kategori" id="add-judul-note" placeholder="Ex: Nongkrong, Trip..." value="<%= note.kategori %>" required>
+						    </div>
+
+							<div class="form-group">
+							    <label for="exampleInputFile">Image Note</label>
+							    <input type="file" class="form-control-file" name="file_img_note_url" id="exampleInputFile" value="<%= note.file_image_note_url %>" placeholder="<%= note.file_image_note_url %>" accept="image/*">
+								<img src="<%= note.file_image_note_url %>" class="img-fluid img-thumbnail" width="100" height="100">
+						    </div> 
+ 						    <br>
+					        <input type="hidden" name="_csrf" value="<%= csrfToken %>">				
+							<input type="hidden" name="idNote" value="<%= note.id %>" > 
+							<div class="note-button">
+								<button type="submit" class="btn btn-outline-success">UBAH NOTE</button>
+							</div>
+						</form> 
+						`;
+				}
+ 			<% }); %>
+		}
+
+		// fungsi untuk memunculkan button popup delete
+		function deleteNote(e) {
+			let deleteNoteButton = document.getElementById('deleteNoteModalButton');
+			deleteNoteButton.innerHTML = `
+		        <button type="button" class="btn btn-outline-danger" id="deleteNoteButton" onclick="deleteNoteAPI( ` + e + `)">YA HAPUS</button>
+		        <button type="button" class="btn btn-outline-success" data-dismiss="modal">BATAL</button>
+			`;
+		}
+ 
+		// Fungsi untuk melakukan delete note 
+		function deleteNoteAPI(e) {
+			console.log('err => ', e);
+			// request AJAX untuk mendelete note
+			postAjaxToDeleteNote({id: e});
+		}
+
+		// Fungsi AJAX untuk melakukan request delete note ke server
+		function postAjaxToDeleteNote(data) {
+			let dataSend = typeof data == 'string' ? data : Object.keys(data).map(
+            function(k){ return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) } ).join('&');
+
+		    var xhr = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP");
+		    xhr.open('POST', '/user/delete-user-note', true	);
+
+		    xhr.onreadystatechange = function() {
+		        if (xhr.readyState>3 && xhr.status==200) { location.reload();  }
+		    };
+
+		    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		    xhr.send(dataSend);
+
+		    return true;
+		}
+
+		// Fungsi untuk merender image note saat dimunculkan popup modal note
+		function renderImgNote(src, judul) {
+			let imgField = document.getElementById('modal-img-note');
+
+			imgField.innerHTML = `
+		    	<div class="modal-header">
+			        <h5 class="modal-title">` + judul + `</h5>
+		        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          	<span aria-hidden="true">&times;</span>
+		       		</button>
+			    </div>
+		      	<div class="modal-body">
+					<img src="` + src + ` " alt="photo-profile" class="img-fluid img-thumbnail img-note-modal"> 
+				</div>
+		      	<div class="modal-footer">
+			    	<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			    </div>
+
+			`;
+		}
+ 	 
+	</script>
+</body>
+</html>
